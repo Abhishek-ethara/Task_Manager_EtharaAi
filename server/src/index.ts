@@ -50,10 +50,16 @@ app.get('/api/health', (_req, res) => {
 });
 
 // Production: serve React build
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'public')));
-  app.get('*', (_req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+const publicPath = path.join(__dirname, 'public');
+if (process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT_NAME === 'production') {
+  console.log(`📂 Serving static files from: ${publicPath}`);
+  app.use(express.static(publicPath));
+  app.get('*', (req, res) => {
+    // Skip API routes to avoid infinite loops if an API route is missing
+    if (req.path.startsWith('/api')) {
+      return res.status(404).json({ success: false, message: 'API Route not found' });
+    }
+    res.sendFile(path.join(publicPath, 'index.html'));
   });
 }
 
