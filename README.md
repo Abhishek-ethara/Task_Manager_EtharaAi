@@ -143,10 +143,8 @@ REQUIRED RAILWAY VARIABLES:
 - MONGODB_URI: (Your MongoDB Atlas Connection String)
 - JWT_SECRET: (A random secret string)
 
-------------------------------------------------------------------------
-5. DEFAULT TEST CREDENTIALS (IN-MEMORY MODE)
-------------------------------------------------------------------------
-If no MONGODB_URI is provided, the server starts in test mode with these:
+
+#Sample Users:
 
 - Project Lead:
   Email: rohan.mehta@ethara.ai
